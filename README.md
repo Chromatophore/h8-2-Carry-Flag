@@ -21,7 +21,7 @@ And this is [the rom](h8_2_carry_flag.ch8)
 ## Goal
 Reach the top of the mountain. There is an ending. There is no timer or points. 
 
-If you would like to see the ending again, but hate climbing, you [can watch here it in gif format](art%20resources\h8_ending.gif)
+If you would like to see the ending again, but hate climbing, you [can watch here it in gif format](art%20resources/h8_ending.gif)
 ## Rules
 You **CAN** latch both your hands, or both your feet, to the same node. But you **CAN NOT** latch a hand on to the same node as a foot, or vice versa.
 
