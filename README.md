@@ -1,6 +1,8 @@
 # H8-2-Carry-Flag
 H8 2 Carry Flag is a chip 8 XO Chip submission for Octojam 9 (2022).
+
 The game can be played for free at https://chromatophore.itch.io/h8-2-carry-flag
+
 It's Time 2 Climb! Use your unusually long limbs to climb to an unusually high peak, in H8 2: Carry Flag! (nb: h8 is intended to be pronounced as "Height", due to the umlaut)
 
 Alternatively here is an octo cart:
