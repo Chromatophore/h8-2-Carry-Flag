@@ -17,9 +17,10 @@ And this is [the rom](h8_2_carry_flag.ch8)
 - Z C : select & latch left and right foot
 - X : select body (when limb is valid)
 - 2 : cancel current limb movement
+- 4 : Show a cool map to help you find where to go, or see how high you are
 - (Controls will vary if you use the onscreen keypad)
 ## Goal
-Reach the top of the mountain. There is an ending. There is no timer or points. 
+Reach the top of the mountain. It's just over 120 height units high. There is an ending. There is no timer or points. 
 
 If you would like to see the ending again, but hate climbing, you [can watch here it in gif format](art%20resources/h8_ending.gif)
 ## Rules

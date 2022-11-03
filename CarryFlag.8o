@@ -37,6 +37,21 @@
 :const stretch_limit 0xe0
 
 : main
+
+	v8 := 0
+	v9 := 0
+
+	loop
+		i := long progress_digits
+		i += v8
+		load v7
+		i := hex v9
+		i += v8
+		save v7
+		v8 += 8
+		if v8 != 64 then
+	again
+
 	
 	plane 3
 	clear
@@ -194,6 +209,8 @@
 	vF := limbsel
 
 	v5 := -1
+
+	v0 := OCTO_KEY_4 if v0 key then jump map_mode
 
 	v0 := OCTO_KEY_E if v0 key then v5 := 0
 	v0 := OCTO_KEY_Q if v0 key then v5 := 8
@@ -419,6 +436,39 @@
 
 	i := selected_limb
 	save limbsel - limbsel
+
+	# Draw a progress indicator:
+	i := level_gxy
+	load v3
+
+	v3 += 10
+	if v3 > 220 then v3 := 0
+
+	i := bcd_height
+	bcd v3
+
+	load v2
+
+	v3 := 1
+	v4 := 46
+
+	i := hex v0
+	sprite v3 v4 5
+
+	v4 += 6
+	i := hex v1
+	sprite v3 v4 5
+
+	v4 += 6
+	i := hex v2
+	sprite v3 v4 5
+	
+
+	i := long height_text
+
+	v4 := 32
+	sprite v3 v4 13
+
 
 	plane 2
 	draw_level
@@ -701,6 +751,9 @@
 
 ;
 
+: bcd_height
+0 0 0
+
 : length_value
 0 
 :monitor length_value 1
@@ -950,6 +1003,81 @@
 #      -     |     -
 #   -  11000 | 11100   -  
 #   6                  7   0 
+
+: map_mode
+	# Remember to keep limbsel (v4) safe
+	plane 3
+	clear
+	plane 1
+
+
+
+	i := long map_text
+	v0 := 122
+	v1 := 1
+	sprite v0 v1 10
+	v1 := 10
+	i += v1
+	v1 := 11
+	sprite v0 v1 7
+
+
+	i := level_part_1
+	load v1
+
+	i := map_line_draw_target
+	save v1
+
+	plane 2
+
+	loop
+		i_next_next map_line_draw_target 0
+		load v3
+
+		if v0 == 0xFF then jump exit_map_mode_render_1
+
+		i := pixel
+		v2 >>= v2
+		v1 >>= v1
+
+		v1 += 24
+		sprite v2 v1 1
+
+		i := map_line_draw_target
+		load v0 - v1
+		v2 := 4
+		v1 += v2
+		if vF != 0 then v0 += 1
+		save v0 - v1
+	again
+
+	: exit_map_mode_render_1
+
+	plane 1
+	i := level_gxy
+	load v3
+
+	v1 := 0
+	i := long duder_glasses
+
+	v3 += 7
+
+	if v3 > 200 then v3 := 0
+	v2 >>= v2
+
+	v2 += 25
+
+
+	: map_mode_loop
+
+	if v1 == 0 then sprite v3 v2 5
+	v1 += 32
+
+	v0 := OCTO_KEY_4 if v0 -key then jump definitely_draw
+
+	q_delay
+	jump map_mode_loop
+
 
 : draw_level
 
@@ -3555,3 +3683,28 @@ lvl_holdy 8 31 254
 0x08 0x08 0xF8 0x08 0x08 0x00 0xF8 0x20 0x20 0x20 0xF8 0x00 0xF8 0xA8 0xA8
 0xA8 0x88 0x00 0x00 0x00 0x00 0x00 0xF8 0xA8 0xA8 0xA8 0x88 0x00 0xF8 0x10
 0x20 0x40 0xF8 0x00 0xF8 0x88 0x88 0x88 0x70 0x00 0x00 0x00 0x00 0x00 0x00
+
+: progress_digits
+0x70 0x88 0x88 0x88 0x70
+0x80 0x90 0xF8 0x80 0x80
+0x90 0xC8 0xA8 0xA8 0x90
+0x88 0xA8 0xA8 0xA8 0x50
+0x60 0x50 0x48 0xF8 0x40
+0xB8 0xA8 0xA8 0xA8 0x48
+0x70 0xA8 0xA8 0xA8 0x40
+0x08 0x08 0x08 0xC8 0x38
+0x50 0xA8 0xA8 0xA8 0x50
+0x30 0x28 0x28 0x28 0xF8
+0x88 0x50 0x20 0x50 0x88
+0x00 0x00 0x00 0x00 0x00
+
+: map_text
+0xF8 0x10 0x20 0x10 0xF8
+0x00 0xE0 0x50 0x48 0x50
+0xE0 0x00 0xF8 0x28 0x28
+0x28 0x10 
+
+: height_text
+0xF8 0x20 0x20 0x20 0xF8
+0x00 0x50 0xAA 0xA8 0xAA
+0x50 0x00 0x50 0x00 0x00
